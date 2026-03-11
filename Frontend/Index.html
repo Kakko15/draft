@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartClearance</title>
+    <title>SmartClearance | Isabela State University</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,53 +11,128 @@
     <link rel="stylesheet" href="./Styles/Main.css">
 </head>
 <body>
-    <div id="LoaderWrapper" class="LoaderWrapper">
-        <div class="GoogleSpinner">
+    <div id="LoaderContainer" class="LoaderContainer">
+        <div class="MaterialSpinner">
             <svg viewBox="0 0 50 50">
-                <circle class="Path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+                <circle class="SpinnerPath" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
             </svg>
         </div>
     </div>
 
-    <main id="MainContent" class="MainContent Hidden">
-        <nav class="TopNav">
-            <div class="NavBrand">
-                <span class="material-symbols-rounded BrandIcon">school</span>
-                <span class="BrandText">SmartClearance</span>
+    <main id="AppRoot" class="AppRoot HiddenState">
+        <nav class="GlobalNavigation">
+            <div class="BrandContainer">
+                <span class="material-symbols-rounded BrandLogo">school</span>
+                <span class="BrandName">SmartClearance</span>
             </div>
-            <div class="NavActions">
-                <button class="BtnText">Help</button>
-                <button class="BtnPrimary" id="BtnLogin">Sign In</button>
+            <div class="NavigationActions">
+                <div class="ThemeContainer" id="ThemeDropdownTrigger">
+                    <span class="material-symbols-rounded ThemeIcon">palette</span>
+                    <span class="ThemeLabel" id="CurrentThemeLabel">Google Theme</span>
+                    <span class="material-symbols-rounded DropdownArrow">expand_more</span>
+                    
+                    <div class="ThemeMenu" id="ThemeMenu">
+                        <div class="ThemeOption" data-value="google">
+                            <span class="material-symbols-rounded OptionIcon">check</span>
+                            Google Theme
+                        </div>
+                        <div class="ThemeOption" data-value="isu">
+                            <span class="material-symbols-rounded OptionIcon">check</span>
+                            ISU Theme
+                        </div>
+                    </div>
+                </div>
+                <button class="ButtonText">Echague Campus Support</button>
+                <button class="ButtonPrimary" id="AuthenticateButton">Access Portal</button>
             </div>
         </nav>
 
-        <section class="HeroSection">
-            <div class="HeroText">
-                <div class="Badge">
-                    <span class="material-symbols-rounded">auto_awesome</span>
-                    Isabela State University
+        <section class="LandingHero">
+            <div class="HeroContent RevealElement">
+                <div class="StatusBadge">
+                    <span class="material-symbols-rounded">memory</span>
+                    Powered by Advanced Data Mining
                 </div>
-                <h1 class="HeroTitle">Clearance,<br>Reimagined.</h1>
-                <p class="HeroSubtitle">Experience the ultra-smooth, intelligent, and secure way to process your university clearance using advanced data mining and facial recognition.</p>
-                <div class="HeroButtons">
-                    <button class="BtnPrimary Large">Get Started</button>
-                    <button class="BtnSecondary Large">
-                        <span class="material-symbols-rounded">play_circle</span>
-                        Watch Demo
+                <h1 class="Headline">Intelligent.<br>Seamless.<br>Clearance.</h1>
+                <p class="Subheadline">Experience the next generation of academic processing. Secure, automated, and designed exclusively for BSCS students and faculty.</p>
+                <div class="ActionGroup">
+                    <button class="ButtonPrimary SizeLarge">Initialize Process</button>
+                    <button class="ButtonSecondary SizeLarge">
+                        <span class="material-symbols-rounded">troubleshoot</span>
+                        System Architecture
                     </button>
                 </div>
             </div>
-            <div class="HeroVisual">
-                <div class="GlassCard AbstractShape1"></div>
-                <div class="GlassCard AbstractShape2">
-                    <span class="material-symbols-rounded CardIcon">verified_user</span>
-                    <div class="CardLines">
-                        <div class="Line"></div>
-                        <div class="Line Short"></div>
+            <div class="HeroGraphics RevealElement" style="transition-delay: 200ms;">
+                <div class="GlassPanel FloatingElementPrimary"></div>
+                <div class="GlassPanel FloatingElementSecondary">
+                    <span class="material-symbols-rounded GraphicIcon">fact_check</span>
+                    <div class="GraphicSkeleton">
+                        <div class="SkeletonTrack"></div>
+                        <div class="SkeletonTrack TrackPartial"></div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <section class="FeatureSection">
+            <div class="SectionHeader RevealElement">
+                <h2 class="SectionTitle">Enterprise-Grade Capabilities</h2>
+                <p class="SectionSubtitle">Built with state-of-the-art algorithms to completely automate and secure your university clearance workflow.</p>
+            </div>
+            <div class="FeatureGrid">
+                <div class="FeatureCard RevealElement" style="transition-delay: 100ms;">
+                    <div class="CardIconWrapper">
+                        <span class="material-symbols-rounded CardIconElement">face</span>
+                    </div>
+                    <h3 class="CardTitle">Biometric Verification</h3>
+                    <p class="CardDescription">Advanced facial recognition ensures military-grade security for processing sensitive academic documents.</p>
+                </div>
+                <div class="FeatureCard RevealElement" style="transition-delay: 200ms;">
+                    <div class="CardIconWrapper">
+                        <span class="material-symbols-rounded CardIconElement">monitoring</span>
+                    </div>
+                    <h3 class="CardTitle">Real-Time Tracking</h3>
+                    <p class="CardDescription">Monitor your clearance status dynamically across all departments with instant push notifications.</p>
+                </div>
+                <div class="FeatureCard RevealElement" style="transition-delay: 300ms;">
+                    <div class="CardIconWrapper">
+                        <span class="material-symbols-rounded CardIconElement">eco</span>
+                    </div>
+                    <h3 class="CardTitle">Sustainable Computing</h3>
+                    <p class="CardDescription">Eliminate paper waste completely. Our digital infrastructure tracks your direct environmental impact.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="GlobalFooter RevealElement">
+            <div class="FooterContent">
+                <div class="FooterBrand">
+                    <div class="BrandContainer">
+                        <span class="material-symbols-rounded BrandLogo">school</span>
+                        <span class="BrandName">SmartClearance</span>
+                    </div>
+                    <p class="FooterDescription">A capstone project engineered for the College of Computing Studies, Information and Communication Technology.</p>
+                </div>
+                <div class="FooterLinks">
+                    <div class="LinkGroup">
+                        <h4 class="LinkTitle">Platform</h4>
+                        <a href="#" class="FooterLink">Authentication</a>
+                        <a href="#" class="FooterLink">Professor Portal</a>
+                        <a href="#" class="FooterLink">Admin Dashboard</a>
+                    </div>
+                    <div class="LinkGroup">
+                        <h4 class="LinkTitle">Resources</h4>
+                        <a href="#" class="FooterLink">Documentation</a>
+                        <a href="#" class="FooterLink">System Architecture</a>
+                        <a href="#" class="FooterLink">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="FooterBottom">
+                <p class="CopyrightText">&copy; 2026 Isabela State University - Echague Campus. All rights reserved.</p>
+            </div>
+        </footer>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

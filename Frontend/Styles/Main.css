@@ -1,20 +1,38 @@
 :root {
-    --GoogleBlue: #1a73e8;
-    --GoogleBlueHover: #1557b0;
-    --GoogleRed: #ea4335;
-    --GoogleYellow: #fbbc04;
-    --GoogleGreen: #34a853;
-    --SurfaceColor: #ffffff;
-    --BackgroundColor: #f8fafd;
-    --TextColor: #202124;
-    --TextLight: #5f6368;
-    --BorderColor: #dadce0;
+    --ColorBrandPrimary: #1a73e8;
+    --ColorBrandHover: #1557b0;
+    --ColorBrandAccent: #1a73e8;
+    --ColorSuccess: #34a853;
+    --ColorBackground: #f8fafd;
+    --ColorSurface: #ffffff;
+    --ColorSurfaceVariant: #f1f3f4;
+    --ColorTextMain: #202124;
+    --ColorTextMuted: #5f6368;
+    --ColorBorder: #dadce0;
+    --ColorBadgeBg: #e8f0fe;
+    --ColorBadgeBorder: transparent;
     --RadiusMedium: 16px;
     --RadiusLarge: 28px;
-    --RadiusPill: 100px;
-    --ShadowElevation1: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-    --ShadowElevation2: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
-    --TransitionStandard: 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    --RadiusMaximum: 9999px;
+    --ElevationLow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+    --ElevationHigh: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+    --AnimationCurve: cubic-bezier(0.4, 0.0, 0.2, 1);
+    --DurationStandard: 300ms;
+    --DurationSlow: 800ms;
+}
+
+[data-theme="isu"] {
+    --ColorBrandPrimary: #0A5C36;
+    --ColorBrandHover: #074327;
+    --ColorBrandAccent: #F2A900;
+    --ColorSuccess: #0A5C36;
+    --ColorBackground: #f4f9f6;
+    --ColorSurfaceVariant: #eaf1ed;
+    --ColorTextMain: #1e2320;
+    --ColorTextMuted: #5c635e;
+    --ColorBorder: #d1d8d3;
+    --ColorBadgeBg: rgba(242, 169, 0, 0.15);
+    --ColorBadgeBorder: rgba(242, 169, 0, 0.3);
 }
 
 * {
@@ -26,275 +44,552 @@
 }
 
 body {
-    background-color: var(--BackgroundColor);
-    color: var(--TextColor);
+    background-color: var(--ColorBackground);
+    color: var(--ColorTextMain);
     overflow-x: hidden;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.LoaderWrapper {
+.RevealElement {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity var(--DurationSlow) var(--AnimationCurve), transform var(--DurationSlow) var(--AnimationCurve);
+}
+
+.RevealActive {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.LoaderContainer {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--SurfaceColor);
+    inset: 0;
+    background-color: var(--ColorSurface);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    transition: opacity var(--TransitionStandard), visibility var(--TransitionStandard);
+    transition: opacity var(--DurationStandard) var(--AnimationCurve), visibility var(--DurationStandard);
 }
 
-.LoaderWrapper.FadeOut {
+.LoaderContainer.StateResolved {
     opacity: 0;
     visibility: hidden;
 }
 
-.GoogleSpinner {
-    width: 50px;
-    height: 50px;
-    animation: Rotate 2s linear infinite;
+.MaterialSpinner {
+    width: 48px;
+    height: 48px;
+    animation: SpinnerRotate 2s linear infinite;
 }
 
-.GoogleSpinner .Path {
-    stroke: var(--GoogleBlue);
+.SpinnerPath {
+    stroke: var(--ColorBrandPrimary);
     stroke-linecap: round;
-    animation: Dash 1.5s ease-in-out infinite;
+    animation: SpinnerDash 1.5s ease-in-out infinite;
+    transition: stroke var(--DurationStandard) var(--AnimationCurve);
 }
 
-@keyframes Rotate {
+@keyframes SpinnerRotate {
     100% { transform: rotate(360deg); }
 }
 
-@keyframes Dash {
+@keyframes SpinnerDash {
     0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
     50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
     100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
 }
 
-.Hidden {
+.HiddenState {
     opacity: 0;
-    transform: translateY(20px);
 }
 
-.MainContent {
+.AppRoot {
     min-height: 100vh;
-    transition: opacity 800ms cubic-bezier(0.4, 0, 0.2, 1), transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity var(--DurationSlow) var(--AnimationCurve);
 }
 
-.MainContent.Visible {
+.AppRoot.VisibleState {
     opacity: 1;
-    transform: translateY(0);
 }
 
-.TopNav {
+.GlobalNavigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(12px);
+    padding: 1rem 2.5rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
-.NavBrand {
+.BrandContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--ColorTextMuted);
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.BrandLogo {
+    color: var(--ColorBrandPrimary);
+    font-size: 1.85rem;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.NavigationActions {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.ThemeContainer {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--TextLight);
+    padding: 0.5rem 1rem;
+    border-radius: var(--RadiusMaximum);
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--ColorBorder);
+    user-select: none;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve);
 }
 
-.BrandIcon {
-    color: var(--GoogleBlue);
-    font-size: 1.75rem;
+.ThemeContainer:hover {
+    background: rgba(128, 128, 128, 0.05);
 }
 
-.NavActions {
+.ThemeIcon {
+    color: var(--ColorBrandPrimary);
+    font-size: 1.2rem;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ThemeLabel {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ColorTextMuted);
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.DropdownArrow {
+    font-size: 1.2rem;
+    color: var(--ColorTextMuted);
+    transition: transform var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ThemeContainer.MenuOpen .DropdownArrow {
+    transform: rotate(180deg);
+}
+
+.ThemeMenu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--ColorSurface);
+    border-radius: var(--RadiusMedium);
+    box-shadow: var(--ElevationHigh);
+    min-width: 180px;
+    padding: 0.5rem 0;
+    z-index: 2000;
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity var(--DurationStandard) var(--AnimationCurve), transform var(--DurationStandard) var(--AnimationCurve), visibility var(--DurationStandard), background-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ThemeMenu.ShowMenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.ThemeOption {
+    display: flex;
     align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ColorTextMain);
+    cursor: pointer;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ThemeOption:hover {
+    background: rgba(128, 128, 128, 0.05);
+}
+
+.OptionIcon {
+    font-size: 1.1rem;
+    opacity: 0;
+    color: var(--ColorBrandPrimary);
+    transition: opacity var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ThemeOption.ActiveOption {
+    background: var(--ColorBadgeBg);
+    color: var(--ColorBrandPrimary);
+}
+
+.ThemeOption.ActiveOption .OptionIcon {
+    opacity: 1;
 }
 
 button {
     border: none;
     cursor: pointer;
     font-weight: 500;
-    font-size: 0.875rem;
-    transition: var(--TransitionStandard);
+    font-size: 0.9rem;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve), transform 150ms var(--AnimationCurve), box-shadow var(--DurationStandard) var(--AnimationCurve);
 }
 
-.BtnText {
+.ButtonText {
     background: transparent;
-    color: var(--TextLight);
-    padding: 0.5rem 1rem;
-    border-radius: var(--RadiusPill);
+    color: var(--ColorTextMuted);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--RadiusMaximum);
 }
 
-.BtnText:hover {
-    background: rgba(60,64,67,0.04);
-    color: var(--TextColor);
+.ButtonText:hover {
+    background: rgba(128,128,128,0.1);
+    color: var(--ColorTextMain);
 }
 
-.BtnPrimary {
-    background: var(--GoogleBlue);
-    color: white;
-    padding: 0.625rem 1.5rem;
-    border-radius: var(--RadiusPill);
-    box-shadow: var(--ShadowElevation1);
+.ButtonPrimary {
+    background: var(--ColorBrandPrimary);
+    color: var(--ColorSurface);
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--RadiusMaximum);
+    box-shadow: var(--ElevationLow);
 }
 
-.BtnPrimary:hover {
-    background: var(--GoogleBlueHover);
-    box-shadow: var(--ShadowElevation2);
+.ButtonPrimary:hover {
+    background: var(--ColorBrandHover);
+    box-shadow: var(--ElevationHigh);
 }
 
-.BtnSecondary {
-    background: var(--SurfaceColor);
-    color: var(--GoogleBlue);
-    padding: 0.625rem 1.5rem;
-    border-radius: var(--RadiusPill);
-    border: 1px solid var(--BorderColor);
+.ButtonSecondary {
+    background: var(--ColorSurface);
+    color: var(--ColorBrandPrimary);
+    padding: 0.75rem 1.75rem;
+    border-radius: var(--RadiusMaximum);
+    border: 1px solid var(--ColorBorder);
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.BtnSecondary:hover {
-    background: rgba(26,115,232,0.04);
+.ButtonSecondary:hover {
+    background: rgba(128,128,128,0.05);
 }
 
-.HeroSection {
+.LandingHero {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    padding: 6rem 8rem;
+    gap: 5rem;
+    padding: 8rem 10rem;
     align-items: center;
-    max-width: 1440px;
+    max-width: 1600px;
     margin: 0 auto;
+    min-height: 80vh;
 }
 
-.Badge {
+.StatusBadge {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: #e8f0fe;
-    color: var(--GoogleBlue);
-    border-radius: var(--RadiusPill);
-    font-size: 0.875rem;
-    font-weight: 500;
-    margin-bottom: 2rem;
+    padding: 0.6rem 1.2rem;
+    background: var(--ColorBadgeBg);
+    color: var(--ColorBrandPrimary);
+    border-radius: var(--RadiusMaximum);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--ColorBadgeBorder);
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.Badge span {
-    font-size: 1.125rem;
+.StatusBadge span {
+    font-size: 1.2rem;
+    color: var(--ColorBrandAccent);
+    transition: color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.HeroTitle {
-    font-size: 4.5rem;
-    line-height: 1.1;
+.Headline {
+    font-size: 5rem;
+    line-height: 1.05;
     font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, var(--TextColor) 0%, var(--TextLight) 100%);
+    letter-spacing: -0.03em;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(135deg, var(--ColorTextMain) 0%, var(--ColorBrandPrimary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: background var(--DurationStandard) var(--AnimationCurve);
 }
 
-.HeroSubtitle {
-    font-size: 1.25rem;
-    color: var(--TextLight);
+.Subheadline {
+    font-size: 1.35rem;
+    color: var(--ColorTextMuted);
     line-height: 1.6;
-    margin-bottom: 2.5rem;
-    max-width: 480px;
+    margin-bottom: 3rem;
+    max-width: 500px;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.HeroButtons {
+.ActionGroup {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
-.HeroButtons .Large {
-    padding: 0.875rem 2rem;
-    font-size: 1rem;
+.SizeLarge {
+    padding: 1rem 2.25rem;
+    font-size: 1.05rem;
 }
 
-.HeroVisual {
+.HeroGraphics {
     position: relative;
-    height: 500px;
+    height: 550px;
 }
 
-.GlassCard {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+.GlassPanel {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     border-radius: var(--RadiusLarge);
-    box-shadow: var(--ShadowElevation2);
+    box-shadow: var(--ElevationHigh);
     position: absolute;
-    animation: Float 6s ease-in-out infinite;
+    animation: FloatAnimation 7s ease-in-out infinite;
 }
 
-.AbstractShape1 {
-    width: 300px;
-    height: 400px;
-    right: 0;
-    top: 50px;
-    background: linear-gradient(135deg, #e8f0fe 0%, #fce8e6 100%);
+.FloatingElementPrimary {
+    width: 320px;
+    height: 420px;
+    right: 5%;
+    top: 10%;
+    background: linear-gradient(135deg, rgba(26,115,232,0.1) 0%, rgba(52,168,83,0.1) 100%);
 }
 
-.AbstractShape2 {
-    width: 250px;
-    height: 150px;
-    left: 20px;
-    bottom: 50px;
-    padding: 1.5rem;
+[data-theme="isu"] .FloatingElementPrimary {
+    background: linear-gradient(135deg, rgba(10,92,54,0.05) 0%, rgba(242,169,0,0.1) 100%);
+}
+
+.FloatingElementSecondary {
+    width: 280px;
+    height: 180px;
+    left: 0;
+    bottom: 15%;
+    padding: 1.75rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 1rem;
-    animation-delay: -3s;
+    gap: 1.25rem;
+    animation-delay: -3.5s;
 }
 
-.CardIcon {
-    color: var(--GoogleGreen);
-    font-size: 2rem;
+.GraphicIcon {
+    color: var(--ColorBrandAccent);
+    font-size: 2.5rem;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.CardLines .Line {
-    height: 8px;
-    background: var(--BorderColor);
-    border-radius: 4px;
-    margin-bottom: 0.5rem;
+.GraphicSkeleton .SkeletonTrack {
+    height: 10px;
+    background: var(--ColorBorder);
+    border-radius: 5px;
+    margin-bottom: 0.75rem;
     width: 100%;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.CardLines .Short {
-    width: 60%;
+.GraphicSkeleton .TrackPartial {
+    width: 65%;
+    background: var(--ColorBrandPrimary);
+    opacity: 0.6;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
 }
 
-@keyframes Float {
+@keyframes FloatAnimation {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+    50% { transform: translateY(-24px); }
     100% { transform: translateY(0px); }
 }
 
+.FeatureSection {
+    padding: 8rem 10rem;
+    background-color: var(--ColorSurface);
+    border-top: 1px solid var(--ColorBorder);
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve);
+}
+
+.SectionHeader {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 5rem auto;
+}
+
+.SectionTitle {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--ColorTextMain);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.SectionSubtitle {
+    font-size: 1.2rem;
+    color: var(--ColorTextMuted);
+    line-height: 1.6;
+}
+
+.FeatureGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.FeatureCard {
+    background: var(--ColorBackground);
+    padding: 3rem 2.5rem;
+    border-radius: var(--RadiusLarge);
+    border: 1px solid var(--ColorBorder);
+    transition: transform var(--DurationStandard) var(--AnimationCurve), box-shadow var(--DurationStandard) var(--AnimationCurve), background-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.FeatureCard:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--ElevationHigh);
+}
+
+.CardIconWrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--RadiusMedium);
+    background: var(--ColorBadgeBg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.CardIconElement {
+    font-size: 2rem;
+    color: var(--ColorBrandPrimary);
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.CardTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--ColorTextMain);
+}
+
+.CardDescription {
+    color: var(--ColorTextMuted);
+    line-height: 1.6;
+    font-size: 1.05rem;
+}
+
+.GlobalFooter {
+    background: var(--ColorSurfaceVariant);
+    padding: 6rem 10rem 2rem 10rem;
+    border-top: 1px solid var(--ColorBorder);
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve);
+}
+
+.FooterContent {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: 5rem;
+    max-width: 1400px;
+    margin: 0 auto 4rem auto;
+}
+
+.FooterDescription {
+    margin-top: 1.5rem;
+    color: var(--ColorTextMuted);
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.FooterLinks {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+}
+
+.LinkTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ColorTextMain);
+    margin-bottom: 1.5rem;
+}
+
+.FooterLink {
+    display: block;
+    color: var(--ColorTextMuted);
+    text-decoration: none;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.FooterLink:hover {
+    color: var(--ColorBrandPrimary);
+}
+
+.FooterBottom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--ColorBorder);
+    text-align: center;
+}
+
+.CopyrightText {
+    color: var(--ColorTextMuted);
+    font-size: 0.9rem;
+}
+
 @media (max-width: 1024px) {
-    .HeroSection {
+    .LandingHero {
         grid-template-columns: 1fr;
-        padding: 4rem 2rem;
+        padding: 5rem 2.5rem;
         text-align: center;
     }
-    .HeroSubtitle {
-        margin: 0 auto 2.5rem auto;
+    .Subheadline {
+        margin: 0 auto 3rem auto;
     }
-    .HeroButtons {
+    .ActionGroup {
         justify-content: center;
     }
-    .HeroVisual {
+    .HeroGraphics {
         display: none;
+    }
+    .FeatureSection {
+        padding: 5rem 2.5rem;
+    }
+    .FeatureGrid {
+        grid-template-columns: 1fr;
+    }
+    .GlobalFooter {
+        padding: 4rem 2.5rem 2rem 2.5rem;
+    }
+    .FooterContent {
+        grid-template-columns: 1fr;
+        gap: 3rem;
     }
 }
