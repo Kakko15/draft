@@ -5,6 +5,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const ThemeMenuElement = document.getElementById('ThemeMenu');
     const ThemeOptions = document.querySelectorAll('.ThemeOption');
     const CurrentThemeLabel = document.getElementById('CurrentThemeLabel');
+    const DynamicHeadlineElement = document.getElementById('DynamicHeadline');
+
+    const HeadlineWords = ["Intelligent", "Rapid", "Eco", "Digital"];
+    let CurrentWordIndex = 0;
+
+    const StartDynamicTyping = () => {
+        if (!DynamicHeadlineElement) return;
+
+        setInterval(() => {
+            DynamicHeadlineElement.classList.add('TextFadeOut');
+            DynamicHeadlineElement.classList.remove('TextFadeIn');
+            
+            setTimeout(() => {
+                CurrentWordIndex = (CurrentWordIndex + 1) % HeadlineWords.length;
+                DynamicHeadlineElement.innerText = HeadlineWords[CurrentWordIndex];
+                
+                DynamicHeadlineElement.classList.remove('TextFadeOut');
+                DynamicHeadlineElement.classList.add('TextFadeIn');
+            }, 500); 
+        }, 3500);
+    };
 
     const InitializeTheme = () => {
         const StoredTheme = localStorage.getItem('ActiveTheme') || 'google';
@@ -16,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (ActiveInitialOption) {
                 ActiveInitialOption.classList.add('ActiveOption');
-                if(CurrentThemeLabel) {
-                    CurrentThemeLabel.innerText = ActiveInitialOption.textContent.replace('check', '').trim();
+                if (CurrentThemeLabel) {
+                    CurrentThemeLabel.innerText = ActiveInitialOption.getAttribute('data-label');
                 }
             }
         }
@@ -57,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 requestAnimationFrame(() => {
                     RootInterface.classList.add('VisibleState');
                     SetupScrollAnimations();
+                    StartDynamicTyping();
                 });
             }, 300);
         }, 1800); 
@@ -82,12 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
             Option.addEventListener('click', (Event) => {
                 Event.stopPropagation();
                 const SelectedTheme = Option.getAttribute('data-value');
-                const ThemeName = Option.textContent.replace('check', '').trim();
+                const ThemeName = Option.getAttribute('data-label');
 
                 document.documentElement.setAttribute('data-theme', SelectedTheme);
                 localStorage.setItem('ActiveTheme', SelectedTheme);
                 
-                if(CurrentThemeLabel) {
+                if (CurrentThemeLabel) {
                     CurrentThemeLabel.innerText = ThemeName;
                 }
 
@@ -100,9 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const PrimaryActionElements = document.querySelectorAll('.ButtonPrimary');
+    const InteractiveButtons = document.querySelectorAll('.ButtonPrimary, .ButtonSecondary');
     
-    PrimaryActionElements.forEach(Button => {
+    InteractiveButtons.forEach(Button => {
         Button.addEventListener('click', () => {
             Button.style.transform = 'scale(0.96)';
             setTimeout(() => {

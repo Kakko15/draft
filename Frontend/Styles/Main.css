@@ -3,9 +3,10 @@
     --ColorBrandHover: #1557b0;
     --ColorBrandAccent: #1a73e8;
     --ColorSuccess: #34a853;
-    --ColorBackground: #f8fafd;
-    --ColorSurface: #ffffff;
-    --ColorSurfaceVariant: #f1f3f4;
+    --ColorSuccessMuted: #e6f4ea;
+    --ColorBackground: #ffffff;
+    --ColorSurface: #f8fafd;
+    --ColorSurfaceVariant: #ffffff;
     --ColorTextMain: #202124;
     --ColorTextMuted: #5f6368;
     --ColorBorder: #dadce0;
@@ -15,7 +16,7 @@
     --RadiusLarge: 28px;
     --RadiusMaximum: 9999px;
     --ElevationLow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
-    --ElevationHigh: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+    --ElevationHigh: 0 4px 12px 0 rgba(60,64,67,0.15), 0 8px 24px 4px rgba(60,64,67,0.1);
     --AnimationCurve: cubic-bezier(0.4, 0.0, 0.2, 1);
     --DurationStandard: 300ms;
     --DurationSlow: 800ms;
@@ -26,8 +27,10 @@
     --ColorBrandHover: #074327;
     --ColorBrandAccent: #F2A900;
     --ColorSuccess: #0A5C36;
-    --ColorBackground: #f4f9f6;
-    --ColorSurfaceVariant: #eaf1ed;
+    --ColorSuccessMuted: rgba(10, 92, 54, 0.1);
+    --ColorBackground: #ffffff;
+    --ColorSurface: #f4f9f6;
+    --ColorSurfaceVariant: #ffffff;
     --ColorTextMain: #1e2320;
     --ColorTextMuted: #5c635e;
     --ColorBorder: #d1d8d3;
@@ -64,7 +67,7 @@ body {
 .LoaderContainer {
     position: fixed;
     inset: 0;
-    background-color: var(--ColorSurface);
+    background-color: var(--ColorBackground);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,40 +93,23 @@ body {
     transition: stroke var(--DurationStandard) var(--AnimationCurve);
 }
 
-@keyframes SpinnerRotate {
-    100% { transform: rotate(360deg); }
-}
+@keyframes SpinnerRotate { 100% { transform: rotate(360deg); } }
+@keyframes SpinnerDash { 0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; } 50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; } 100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; } }
 
-@keyframes SpinnerDash {
-    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
-    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
-    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
-}
-
-.HiddenState {
-    opacity: 0;
-}
-
-.AppRoot {
-    min-height: 100vh;
-    transition: opacity var(--DurationSlow) var(--AnimationCurve);
-}
-
-.AppRoot.VisibleState {
-    opacity: 1;
-}
+.HiddenState { opacity: 0; }
+.AppRoot { min-height: 100vh; transition: opacity var(--DurationSlow) var(--AnimationCurve); }
+.AppRoot.VisibleState { opacity: 1; }
 
 .GlobalNavigation {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2.5rem;
+    padding: 1.25rem 4rem;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     position: sticky;
     top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .BrandContainer {
@@ -131,8 +117,8 @@ body {
     align-items: center;
     gap: 0.75rem;
     font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--ColorTextMuted);
+    font-weight: 700;
+    color: var(--ColorTextMain);
     transition: color var(--DurationStandard) var(--AnimationCurve);
 }
 
@@ -140,6 +126,23 @@ body {
     color: var(--ColorBrandPrimary);
     font-size: 1.85rem;
     transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.NavigationLinks {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.NavLink {
+    text-decoration: none;
+    color: var(--ColorTextMuted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.NavLink:hover, .NavLink.ActiveLink {
+    color: var(--ColorTextMain);
 }
 
 .NavigationActions {
@@ -157,43 +160,25 @@ body {
     border-radius: var(--RadiusMaximum);
     cursor: pointer;
     background: transparent;
-    border: 1px solid var(--ColorBorder);
     user-select: none;
-    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve);
+    width: 195px;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
 }
 
 .ThemeContainer:hover {
     background: rgba(128, 128, 128, 0.05);
 }
 
-.ThemeIcon {
-    color: var(--ColorBrandPrimary);
-    font-size: 1.2rem;
-    transition: color var(--DurationStandard) var(--AnimationCurve);
-}
-
-.ThemeLabel {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--ColorTextMuted);
-    transition: color var(--DurationStandard) var(--AnimationCurve);
-}
-
-.DropdownArrow {
-    font-size: 1.2rem;
-    color: var(--ColorTextMuted);
-    transition: transform var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
-}
-
-.ThemeContainer.MenuOpen .DropdownArrow {
-    transform: rotate(180deg);
-}
+.ThemeIcon { color: var(--ColorBrandPrimary); font-size: 1.2rem; transition: color var(--DurationStandard) var(--AnimationCurve); }
+.ThemeLabel { font-size: 0.9rem; font-weight: 600; color: var(--ColorTextMuted); white-space: nowrap; transition: color var(--DurationStandard) var(--AnimationCurve); }
+.DropdownArrow { font-size: 1.2rem; color: var(--ColorTextMuted); transition: transform var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve); }
+.ThemeContainer.MenuOpen .DropdownArrow { transform: rotate(180deg); }
 
 .ThemeMenu {
     position: absolute;
     top: calc(100% + 0.5rem);
     right: 0;
-    background: var(--ColorSurface);
+    background: var(--ColorSurfaceVariant);
     border-radius: var(--RadiusMedium);
     box-shadow: var(--ElevationHigh);
     min-width: 180px;
@@ -204,14 +189,10 @@ body {
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: opacity var(--DurationStandard) var(--AnimationCurve), transform var(--DurationStandard) var(--AnimationCurve), visibility var(--DurationStandard), background-color var(--DurationStandard) var(--AnimationCurve);
+    transition: opacity var(--DurationStandard) var(--AnimationCurve), transform var(--DurationStandard) var(--AnimationCurve), visibility var(--DurationStandard);
 }
 
-.ThemeMenu.ShowMenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
+.ThemeMenu.ShowMenu { opacity: 1; visibility: visible; transform: translateY(0); }
 
 .ThemeOption {
     display: flex;
@@ -222,47 +203,20 @@ body {
     font-weight: 500;
     color: var(--ColorTextMain);
     cursor: pointer;
-    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.ThemeOption:hover {
-    background: rgba(128, 128, 128, 0.05);
-}
-
-.OptionIcon {
-    font-size: 1.1rem;
-    opacity: 0;
-    color: var(--ColorBrandPrimary);
-    transition: opacity var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
-}
-
-.ThemeOption.ActiveOption {
-    background: var(--ColorBadgeBg);
-    color: var(--ColorBrandPrimary);
-}
-
-.ThemeOption.ActiveOption .OptionIcon {
-    opacity: 1;
-}
+.ThemeOption:hover { background: rgba(128, 128, 128, 0.05); }
+.OptionIcon { font-size: 1.1rem; opacity: 0; color: var(--ColorBrandPrimary); }
+.ThemeOption.ActiveOption { background: var(--ColorBadgeBg); color: var(--ColorBrandPrimary); }
+.ThemeOption.ActiveOption .OptionIcon { opacity: 1; }
 
 button {
     border: none;
     cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
+    font-weight: 600;
+    font-size: 0.95rem;
     transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve), transform 150ms var(--AnimationCurve), box-shadow var(--DurationStandard) var(--AnimationCurve);
-}
-
-.ButtonText {
-    background: transparent;
-    color: var(--ColorTextMuted);
-    padding: 0.6rem 1.2rem;
-    border-radius: var(--RadiusMaximum);
-}
-
-.ButtonText:hover {
-    background: rgba(128,128,128,0.1);
-    color: var(--ColorTextMain);
 }
 
 .ButtonPrimary {
@@ -270,16 +224,15 @@ button {
     color: var(--ColorSurface);
     padding: 0.75rem 1.75rem;
     border-radius: var(--RadiusMaximum);
-    box-shadow: var(--ElevationLow);
 }
 
 .ButtonPrimary:hover {
     background: var(--ColorBrandHover);
-    box-shadow: var(--ElevationHigh);
+    box-shadow: var(--ElevationLow);
 }
 
 .ButtonSecondary {
-    background: var(--ColorSurface);
+    background: var(--ColorBackground);
     color: var(--ColorBrandPrimary);
     padding: 0.75rem 1.75rem;
     border-radius: var(--RadiusMaximum);
@@ -296,139 +249,281 @@ button {
 .LandingHero {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    padding: 8rem 10rem;
+    gap: 4rem;
+    padding: 6rem 4rem 8rem 4rem;
     align-items: center;
-    max-width: 1600px;
+    max-width: 1440px;
     margin: 0 auto;
-    min-height: 80vh;
+    min-height: 85vh;
 }
 
-.StatusBadge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    background: var(--ColorBadgeBg);
+.DynamicTextContainer {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    height: 1.1em;
     color: var(--ColorBrandPrimary);
-    border-radius: var(--RadiusMaximum);
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 2.5rem;
-    border: 1px solid var(--ColorBadgeBorder);
-    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+    transition: color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.StatusBadge span {
-    font-size: 1.2rem;
-    color: var(--ColorBrandAccent);
-    transition: color var(--DurationStandard) var(--AnimationCurve);
+.DynamicWord {
+    display: inline-block;
+    transition: transform 500ms var(--AnimationCurve), opacity 500ms var(--AnimationCurve);
+}
+
+.TextFadeOut {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.TextFadeIn {
+    animation: RevealText 500ms var(--AnimationCurve) forwards;
+}
+
+@keyframes RevealText {
+    0% { transform: translateY(100%); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
 }
 
 .Headline {
-    font-size: 5rem;
+    font-size: 5.5rem;
     line-height: 1.05;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 1.75rem;
-    background: linear-gradient(135deg, var(--ColorTextMain) 0%, var(--ColorBrandPrimary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: background var(--DurationStandard) var(--AnimationCurve);
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+    color: var(--ColorTextMain);
 }
 
 .Subheadline {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     color: var(--ColorTextMuted);
     line-height: 1.6;
-    margin-bottom: 3rem;
-    max-width: 500px;
-    transition: color var(--DurationStandard) var(--AnimationCurve);
+    margin-bottom: 3.5rem;
+    max-width: 520px;
 }
 
 .ActionGroup {
     display: flex;
-    gap: 1.25rem;
+    gap: 1rem;
+    margin-bottom: 4rem;
 }
 
 .SizeLarge {
-    padding: 1rem 2.25rem;
-    font-size: 1.05rem;
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+}
+
+.StatisticsRow {
+    display: flex;
+    gap: 3rem;
+    border-top: 1px solid var(--ColorBorder);
+    padding-top: 2rem;
+}
+
+.StatNumber {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ColorTextMain);
+    margin-bottom: 0.25rem;
+}
+
+.StatLabel {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ColorTextMuted);
 }
 
 .HeroGraphics {
     position: relative;
-    height: 550px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.GlassPanel {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+.VisualWidget {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(32px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: var(--RadiusLarge);
     box-shadow: var(--ElevationHigh);
     position: absolute;
-    animation: FloatAnimation 7s ease-in-out infinite;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
 }
 
-.FloatingElementPrimary {
-    width: 320px;
-    height: 420px;
-    right: 5%;
-    top: 10%;
-    background: linear-gradient(135deg, rgba(26,115,232,0.1) 0%, rgba(52,168,83,0.1) 100%);
+[data-theme="isu"] .VisualWidget {
+    background: rgba(244, 249, 246, 0.9);
 }
 
-[data-theme="isu"] .FloatingElementPrimary {
-    background: linear-gradient(135deg, rgba(10,92,54,0.05) 0%, rgba(242,169,0,0.1) 100%);
+.MainWidget {
+    width: 440px;
+    padding: 2.5rem;
+    animation: FloatSlow 8s ease-in-out infinite;
 }
 
-.FloatingElementSecondary {
-    width: 280px;
-    height: 180px;
-    left: 0;
-    bottom: 15%;
-    padding: 1.75rem;
+.WidgetHeader {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.UserAvatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--ColorSuccessMuted);
+    color: var(--ColorSuccess);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.WidgetSkeleton { flex: 1; }
+.SkeletonLine { height: 10px; background: var(--ColorBorder); border-radius: 5px; margin-bottom: 0.75rem; transition: background-color var(--DurationStandard) var(--AnimationCurve); }
+.ShortLine { width: 50%; }
+.FullLine { width: 100%; }
+.MediumLine { width: 80%; }
+
+.StatusPill {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+    background: var(--ColorSuccessMuted);
+    color: var(--ColorSuccess);
+    border-radius: var(--RadiusMaximum);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.StatusIcon { font-size: 1.1rem; }
+
+.WidgetBody {
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--ColorBorder);
+    border-bottom: 1px solid var(--ColorBorder);
+    transition: border-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ProgressInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+}
+
+.ProgressLabel {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ColorTextMuted);
+    letter-spacing: 0.05em;
+}
+
+.ProgressPercentage {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--ColorTextMain);
+    line-height: 1;
+}
+
+.ProgressBarContainer {
+    height: 12px;
+    background: var(--ColorBorder);
+    border-radius: 6px;
+    position: relative;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ProgressBarFill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--ColorSuccess);
+    border-radius: 6px;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.ProgressCheckmark {
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ColorSuccess);
+    background: var(--ColorSurfaceVariant);
+    border-radius: 50%;
+    display: flex;
+    font-size: 1.8rem;
+    transition: color var(--DurationStandard) var(--AnimationCurve), background-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.FloatBadge {
+    bottom: 50px;
+    left: -40px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    animation: FloatSlow 8s ease-in-out infinite reverse;
+}
+
+.BadgeIconWrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--RadiusMedium);
+    background: var(--ColorBadgeBg);
+    color: var(--ColorBrandPrimary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6rem;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.BadgeTextWrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 1.25rem;
-    animation-delay: -3.5s;
 }
 
-.GraphicIcon {
-    color: var(--ColorBrandAccent);
-    font-size: 2.5rem;
-    transition: color var(--DurationStandard) var(--AnimationCurve);
+.BadgeTitle {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ColorTextMuted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
 }
 
-.GraphicSkeleton .SkeletonTrack {
-    height: 10px;
-    background: var(--ColorBorder);
-    border-radius: 5px;
-    margin-bottom: 0.75rem;
-    width: 100%;
-    transition: background-color var(--DurationStandard) var(--AnimationCurve);
+.BadgeValue {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ColorTextMain);
 }
 
-.GraphicSkeleton .TrackPartial {
-    width: 65%;
-    background: var(--ColorBrandPrimary);
-    opacity: 0.6;
-    transition: background-color var(--DurationStandard) var(--AnimationCurve);
-}
-
-@keyframes FloatAnimation {
+@keyframes FloatSlow {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-24px); }
+    50% { transform: translateY(-20px); }
     100% { transform: translateY(0px); }
 }
 
+.WorkflowSection, .FeatureSection {
+    padding: 8rem 4rem;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
 .FeatureSection {
-    padding: 8rem 10rem;
     background-color: var(--ColorSurface);
-    border-top: 1px solid var(--ColorBorder);
-    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve);
+    border-radius: var(--RadiusLarge);
+    margin-bottom: 4rem;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve);
 }
 
 .SectionHeader {
@@ -438,11 +533,11 @@ button {
 }
 
 .SectionTitle {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
     color: var(--ColorTextMain);
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.03em;
 }
 
 .SectionSubtitle {
@@ -451,17 +546,71 @@ button {
     line-height: 1.6;
 }
 
-.FeatureGrid {
+.WorkflowGrid, .FeatureGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
+}
+
+.WorkflowStep {
+    background: var(--ColorSurfaceVariant);
+    padding: 3rem;
+    border-radius: var(--RadiusLarge);
+    border: 1px solid var(--ColorBorder);
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--DurationStandard) var(--AnimationCurve), box-shadow var(--DurationStandard) var(--AnimationCurve), background-color var(--DurationStandard) var(--AnimationCurve), border-color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.WorkflowStep:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--ElevationHigh);
+}
+
+.StepHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+}
+
+.StepIconContainer {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--RadiusMedium);
+    background: var(--ColorSuccessMuted);
+    color: var(--ColorSuccess);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.StepNumber {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--ColorBorder);
+    line-height: 1;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.StepTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--ColorTextMain);
+}
+
+.StepDescription {
+    color: var(--ColorTextMuted);
+    line-height: 1.6;
+    font-size: 1.05rem;
 }
 
 .FeatureCard {
     background: var(--ColorBackground);
-    padding: 3rem 2.5rem;
+    padding: 3rem;
     border-radius: var(--RadiusLarge);
     border: 1px solid var(--ColorBorder);
     transition: transform var(--DurationStandard) var(--AnimationCurve), box-shadow var(--DurationStandard) var(--AnimationCurve), background-color var(--DurationStandard) var(--AnimationCurve);
@@ -473,8 +622,8 @@ button {
 }
 
 .CardIconWrapper {
-    width: 64px;
-    height: 64px;
+    width: 56px;
+    height: 56px;
     border-radius: var(--RadiusMedium);
     background: var(--ColorBadgeBg);
     display: flex;
@@ -485,14 +634,14 @@ button {
 }
 
 .CardIconElement {
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--ColorBrandPrimary);
     transition: color var(--DurationStandard) var(--AnimationCurve);
 }
 
 .CardTitle {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-weight: 700;
     margin-bottom: 1rem;
     color: var(--ColorTextMain);
 }
@@ -500,22 +649,22 @@ button {
 .CardDescription {
     color: var(--ColorTextMuted);
     line-height: 1.6;
-    font-size: 1.05rem;
+    font-size: 1rem;
 }
 
 .GlobalFooter {
-    background: var(--ColorSurfaceVariant);
-    padding: 6rem 10rem 2rem 10rem;
+    background: var(--ColorSurface);
+    padding: 6rem 4rem 2rem 4rem;
     border-top: 1px solid var(--ColorBorder);
-    transition: background-color var(--DurationStandard) var(--AnimationCurve), border var(--DurationStandard) var(--AnimationCurve);
+    transition: background-color var(--DurationStandard) var(--AnimationCurve), border-color var(--DurationStandard) var(--AnimationCurve);
 }
 
 .FooterContent {
     display: grid;
     grid-template-columns: 2fr 3fr;
-    gap: 5rem;
-    max-width: 1400px;
-    margin: 0 auto 4rem auto;
+    gap: 6rem;
+    max-width: 1440px;
+    margin: 0 auto 5rem auto;
 }
 
 .FooterDescription {
@@ -528,22 +677,25 @@ button {
 .FooterLinks {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
+    gap: 4rem;
 }
 
 .LinkTitle {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     color: var(--ColorTextMain);
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .FooterLink {
     display: block;
     color: var(--ColorTextMuted);
     text-decoration: none;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     font-size: 1rem;
+    font-weight: 500;
     transition: color var(--DurationStandard) var(--AnimationCurve);
 }
 
@@ -552,44 +704,47 @@ button {
 }
 
 .FooterBottom {
-    max-width: 1400px;
+    max-width: 1440px;
     margin: 0 auto;
     padding-top: 2rem;
     border-top: 1px solid var(--ColorBorder);
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .CopyrightText {
     color: var(--ColorTextMuted);
     font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.LegalLinks {
+    display: flex;
+    gap: 2rem;
+}
+
+.LegalLinks a {
+    color: var(--ColorTextMuted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color var(--DurationStandard) var(--AnimationCurve);
+}
+
+.LegalLinks a:hover {
+    color: var(--ColorTextMain);
 }
 
 @media (max-width: 1024px) {
-    .LandingHero {
-        grid-template-columns: 1fr;
-        padding: 5rem 2.5rem;
-        text-align: center;
-    }
-    .Subheadline {
-        margin: 0 auto 3rem auto;
-    }
-    .ActionGroup {
-        justify-content: center;
-    }
-    .HeroGraphics {
-        display: none;
-    }
-    .FeatureSection {
-        padding: 5rem 2.5rem;
-    }
-    .FeatureGrid {
-        grid-template-columns: 1fr;
-    }
-    .GlobalFooter {
-        padding: 4rem 2.5rem 2rem 2.5rem;
-    }
-    .FooterContent {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
+    .LandingHero { grid-template-columns: 1fr; text-align: center; padding: 4rem 2rem; }
+    .Subheadline { margin: 0 auto 3rem auto; }
+    .ActionGroup { justify-content: center; }
+    .StatisticsRow { justify-content: center; }
+    .HeroGraphics { display: none; }
+    .WorkflowGrid, .FeatureGrid { grid-template-columns: 1fr; }
+    .WorkflowSection, .FeatureSection { padding: 5rem 2rem; }
+    .FooterContent { grid-template-columns: 1fr; gap: 4rem; }
+    .GlobalFooter { padding: 4rem 2rem 2rem 2rem; }
+    .FooterBottom { flex-direction: column; gap: 1.5rem; text-align: center; }
 }

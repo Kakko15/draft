@@ -25,6 +25,11 @@
                 <span class="material-symbols-rounded BrandLogo">school</span>
                 <span class="BrandName">SmartClearance</span>
             </div>
+            <div class="NavigationLinks">
+                <a href="#" class="NavLink ActiveLink">Home</a>
+                <a href="#Workflow" class="NavLink">Workflow</a>
+                <a href="#Features" class="NavLink">Capabilities</a>
+            </div>
             <div class="NavigationActions">
                 <div class="ThemeContainer" id="ThemeDropdownTrigger">
                     <span class="material-symbols-rounded ThemeIcon">palette</span>
@@ -32,75 +37,164 @@
                     <span class="material-symbols-rounded DropdownArrow">expand_more</span>
                     
                     <div class="ThemeMenu" id="ThemeMenu">
-                        <div class="ThemeOption" data-value="google">
+                        <div class="ThemeOption" data-value="google" data-label="Google Theme">
                             <span class="material-symbols-rounded OptionIcon">check</span>
-                            Google Theme
+                            <span class="OptionText">Google Theme</span>
                         </div>
-                        <div class="ThemeOption" data-value="isu">
+                        <div class="ThemeOption" data-value="isu" data-label="ISU Theme">
                             <span class="material-symbols-rounded OptionIcon">check</span>
-                            ISU Theme
+                            <span class="OptionText">ISU Theme</span>
                         </div>
                     </div>
                 </div>
-                <button class="ButtonText">Echague Campus Support</button>
-                <button class="ButtonPrimary" id="AuthenticateButton">Access Portal</button>
+                <button class="ButtonPrimary" id="AuthenticateButton">Sign In</button>
             </div>
         </nav>
 
         <section class="LandingHero">
             <div class="HeroContent RevealElement">
-                <div class="StatusBadge">
-                    <span class="material-symbols-rounded">memory</span>
-                    Powered by Advanced Data Mining
-                </div>
-                <h1 class="Headline">Intelligent.<br>Seamless.<br>Clearance.</h1>
-                <p class="Subheadline">Experience the next generation of academic processing. Secure, automated, and designed exclusively for BSCS students and faculty.</p>
+                <h1 class="Headline">
+                    <span class="DynamicTextContainer">
+                        <span id="DynamicHeadline" class="DynamicWord">Intelligent</span>
+                    </span><br>
+                    Clearance.
+                </h1>
+                <p class="Subheadline">Seamless, rapid, and eco-conscious processing for the modern Smart-Green University. Secure, automated, and designed exclusively for BSCS students and faculty.</p>
                 <div class="ActionGroup">
-                    <button class="ButtonPrimary SizeLarge">Initialize Process</button>
+                    <button class="ButtonPrimary SizeLarge">Get Started</button>
                     <button class="ButtonSecondary SizeLarge">
-                        <span class="material-symbols-rounded">troubleshoot</span>
+                        <span class="material-symbols-rounded">play_circle</span>
                         System Architecture
                     </button>
                 </div>
+                
+                <div class="StatisticsRow RevealElement">
+                    <div class="StatBlock">
+                        <h4 class="StatNumber">5k+</h4>
+                        <p class="StatLabel">Students</p>
+                    </div>
+                    <div class="StatBlock">
+                        <h4 class="StatNumber">24h</h4>
+                        <p class="StatLabel">Processing</p>
+                    </div>
+                    <div class="StatBlock">
+                        <h4 class="StatNumber">100%</h4>
+                        <p class="StatLabel">Paperless</p>
+                    </div>
+                </div>
             </div>
-            <div class="HeroGraphics RevealElement" style="transition-delay: 200ms;">
-                <div class="GlassPanel FloatingElementPrimary"></div>
-                <div class="GlassPanel FloatingElementSecondary">
-                    <span class="material-symbols-rounded GraphicIcon">fact_check</span>
-                    <div class="GraphicSkeleton">
-                        <div class="SkeletonTrack"></div>
-                        <div class="SkeletonTrack TrackPartial"></div>
+
+            <div class="HeroGraphics RevealElement">
+                <div class="VisualWidget MainWidget">
+                    <div class="WidgetHeader">
+                        <div class="UserAvatar">
+                            <span class="material-symbols-rounded">person</span>
+                        </div>
+                        <div class="WidgetSkeleton">
+                            <div class="SkeletonLine"></div>
+                            <div class="SkeletonLine ShortLine"></div>
+                        </div>
+                        <div class="StatusPill">
+                            <span class="material-symbols-rounded StatusIcon">verified</span>
+                            Verified
+                        </div>
+                    </div>
+                    <div class="WidgetBody">
+                        <div class="WidgetSkeleton">
+                            <div class="SkeletonLine FullLine"></div>
+                            <div class="SkeletonLine MediumLine"></div>
+                        </div>
+                    </div>
+                    <div class="WidgetFooter">
+                        <div class="ProgressInfo">
+                            <span class="ProgressLabel">OVERALL PROGRESS</span>
+                            <span class="ProgressPercentage">100%</span>
+                        </div>
+                        <div class="ProgressBarContainer">
+                            <div class="ProgressBarFill"></div>
+                            <div class="ProgressCheckmark">
+                                <span class="material-symbols-rounded">check_circle</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="VisualWidget FloatBadge">
+                    <div class="BadgeIconWrapper">
+                        <span class="material-symbols-rounded BadgeEcoIcon">psychiatry</span>
+                    </div>
+                    <div class="BadgeTextWrapper">
+                        <span class="BadgeTitle">ECO IMPACT</span>
+                        <span class="BadgeValue">120 Trees Saved</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="FeatureSection">
+        <section id="Workflow" class="WorkflowSection">
             <div class="SectionHeader RevealElement">
-                <h2 class="SectionTitle">Enterprise-Grade Capabilities</h2>
-                <p class="SectionSubtitle">Built with state-of-the-art algorithms to completely automate and secure your university clearance workflow.</p>
+                <h2 class="SectionTitle">Seamless Workflow.</h2>
+                <p class="SectionSubtitle">Clearance processing simplified into a straightforward, automated digital experience.</p>
+            </div>
+            <div class="WorkflowGrid">
+                <div class="WorkflowStep RevealElement">
+                    <div class="StepHeader">
+                        <div class="StepIconContainer">
+                            <span class="material-symbols-rounded StepIcon">key</span>
+                        </div>
+                        <span class="StepNumber">01</span>
+                    </div>
+                    <h3 class="StepTitle">Login Authentication</h3>
+                    <p class="StepDescription">Securely sign in using your portal credentials integrated with biometric 2FA verification.</p>
+                </div>
+                <div class="WorkflowStep RevealElement">
+                    <div class="StepHeader">
+                        <div class="StepIconContainer">
+                            <span class="material-symbols-rounded StepIcon">fact_check</span>
+                        </div>
+                        <span class="StepNumber">02</span>
+                    </div>
+                    <h3 class="StepTitle">Digital Processing</h3>
+                    <p class="StepDescription">Offices verify your clearance dynamically in real-time, eliminating physical signatures.</p>
+                </div>
+                <div class="WorkflowStep RevealElement">
+                    <div class="StepHeader">
+                        <div class="StepIconContainer">
+                            <span class="material-symbols-rounded StepIcon">verified_user</span>
+                        </div>
+                        <span class="StepNumber">03</span>
+                    </div>
+                    <h3 class="StepTitle">Instant Verification</h3>
+                    <p class="StepDescription">Generate your secure digital clearance certificate with cryptographic authentication.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="Features" class="FeatureSection">
+            <div class="SectionHeader RevealElement">
+                <h2 class="SectionTitle">Built for the Future.</h2>
+                <p class="SectionSubtitle">Advanced technology streamlining your academic journey through secure, instant processing.</p>
             </div>
             <div class="FeatureGrid">
-                <div class="FeatureCard RevealElement" style="transition-delay: 100ms;">
+                <div class="FeatureCard RevealElement">
                     <div class="CardIconWrapper">
-                        <span class="material-symbols-rounded CardIconElement">face</span>
+                        <span class="material-symbols-rounded CardIconElement">energy_savings_leaf</span>
                     </div>
-                    <h3 class="CardTitle">Biometric Verification</h3>
-                    <p class="CardDescription">Advanced facial recognition ensures military-grade security for processing sensitive academic documents.</p>
+                    <h3 class="CardTitle">100% Paperless</h3>
+                    <p class="CardDescription">Eliminate physical forms and reduce campus waste. Help build our Smart-Green University vision while saving your time.</p>
                 </div>
-                <div class="FeatureCard RevealElement" style="transition-delay: 200ms;">
+                <div class="FeatureCard RevealElement">
                     <div class="CardIconWrapper">
-                        <span class="material-symbols-rounded CardIconElement">monitoring</span>
+                        <span class="material-symbols-rounded CardIconElement">dynamic_feed</span>
                     </div>
                     <h3 class="CardTitle">Real-Time Tracking</h3>
-                    <p class="CardDescription">Monitor your clearance status dynamically across all departments with instant push notifications.</p>
+                    <p class="CardDescription">Monitor your clearance status instantly. Get notified immediately when an office verifies and approves your request.</p>
                 </div>
-                <div class="FeatureCard RevealElement" style="transition-delay: 300ms;">
+                <div class="FeatureCard RevealElement">
                     <div class="CardIconWrapper">
-                        <span class="material-symbols-rounded CardIconElement">eco</span>
+                        <span class="material-symbols-rounded CardIconElement">gpp_good</span>
                     </div>
-                    <h3 class="CardTitle">Sustainable Computing</h3>
-                    <p class="CardDescription">Eliminate paper waste completely. Our digital infrastructure tracks your direct environmental impact.</p>
+                    <h3 class="CardTitle">Secure & Verified</h3>
+                    <p class="CardDescription">Enterprise-grade security. Digital signatures and QR verification ensure absolute authenticity for every document.</p>
                 </div>
             </div>
         </section>
@@ -112,7 +206,7 @@
                         <span class="material-symbols-rounded BrandLogo">school</span>
                         <span class="BrandName">SmartClearance</span>
                     </div>
-                    <p class="FooterDescription">A capstone project engineered for the College of Computing Studies, Information and Communication Technology.</p>
+                    <p class="FooterDescription">The official digital clearance system of Isabela State University - Echague Campus. Elevating academic service through innovation.</p>
                 </div>
                 <div class="FooterLinks">
                     <div class="LinkGroup">
@@ -125,18 +219,22 @@
                         <h4 class="LinkTitle">Resources</h4>
                         <a href="#" class="FooterLink">Documentation</a>
                         <a href="#" class="FooterLink">System Architecture</a>
-                        <a href="#" class="FooterLink">Privacy Policy</a>
+                        <a href="#" class="FooterLink">Help Center</a>
                     </div>
                 </div>
             </div>
             <div class="FooterBottom">
                 <p class="CopyrightText">&copy; 2026 Isabela State University - Echague Campus. All rights reserved.</p>
+                <div class="LegalLinks">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
             </div>
         </footer>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./Scripts/SupabaseClient.js"></script>
+    <script src="./Scripts/DatabaseConnection.js"></script>
     <script src="./Scripts/App.js"></script>
 </body>
 </html>
