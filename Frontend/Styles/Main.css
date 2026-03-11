@@ -1,0 +1,300 @@
+:root {
+    --GoogleBlue: #1a73e8;
+    --GoogleBlueHover: #1557b0;
+    --GoogleRed: #ea4335;
+    --GoogleYellow: #fbbc04;
+    --GoogleGreen: #34a853;
+    --SurfaceColor: #ffffff;
+    --BackgroundColor: #f8fafd;
+    --TextColor: #202124;
+    --TextLight: #5f6368;
+    --BorderColor: #dadce0;
+    --RadiusMedium: 16px;
+    --RadiusLarge: 28px;
+    --RadiusPill: 100px;
+    --ShadowElevation1: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+    --ShadowElevation2: 0 1px 2px 0 rgba(60,64,67,0.3), 0 2px 6px 2px rgba(60,64,67,0.15);
+    --TransitionStandard: 300ms cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--BackgroundColor);
+    color: var(--TextColor);
+    overflow-x: hidden;
+}
+
+.LoaderWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--SurfaceColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity var(--TransitionStandard), visibility var(--TransitionStandard);
+}
+
+.LoaderWrapper.FadeOut {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.GoogleSpinner {
+    width: 50px;
+    height: 50px;
+    animation: Rotate 2s linear infinite;
+}
+
+.GoogleSpinner .Path {
+    stroke: var(--GoogleBlue);
+    stroke-linecap: round;
+    animation: Dash 1.5s ease-in-out infinite;
+}
+
+@keyframes Rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes Dash {
+    0% { stroke-dasharray: 1, 150; stroke-dashoffset: 0; }
+    50% { stroke-dasharray: 90, 150; stroke-dashoffset: -35; }
+    100% { stroke-dasharray: 90, 150; stroke-dashoffset: -124; }
+}
+
+.Hidden {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.MainContent {
+    min-height: 100vh;
+    transition: opacity 800ms cubic-bezier(0.4, 0, 0.2, 1), transform 800ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.MainContent.Visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.TopNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.NavBrand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--TextLight);
+}
+
+.BrandIcon {
+    color: var(--GoogleBlue);
+    font-size: 1.75rem;
+}
+
+.NavActions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: var(--TransitionStandard);
+}
+
+.BtnText {
+    background: transparent;
+    color: var(--TextLight);
+    padding: 0.5rem 1rem;
+    border-radius: var(--RadiusPill);
+}
+
+.BtnText:hover {
+    background: rgba(60,64,67,0.04);
+    color: var(--TextColor);
+}
+
+.BtnPrimary {
+    background: var(--GoogleBlue);
+    color: white;
+    padding: 0.625rem 1.5rem;
+    border-radius: var(--RadiusPill);
+    box-shadow: var(--ShadowElevation1);
+}
+
+.BtnPrimary:hover {
+    background: var(--GoogleBlueHover);
+    box-shadow: var(--ShadowElevation2);
+}
+
+.BtnSecondary {
+    background: var(--SurfaceColor);
+    color: var(--GoogleBlue);
+    padding: 0.625rem 1.5rem;
+    border-radius: var(--RadiusPill);
+    border: 1px solid var(--BorderColor);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.BtnSecondary:hover {
+    background: rgba(26,115,232,0.04);
+}
+
+.HeroSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding: 6rem 8rem;
+    align-items: center;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.Badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #e8f0fe;
+    color: var(--GoogleBlue);
+    border-radius: var(--RadiusPill);
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.Badge span {
+    font-size: 1.125rem;
+}
+
+.HeroTitle {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--TextColor) 0%, var(--TextLight) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.HeroSubtitle {
+    font-size: 1.25rem;
+    color: var(--TextLight);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+}
+
+.HeroButtons {
+    display: flex;
+    gap: 1rem;
+}
+
+.HeroButtons .Large {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+}
+
+.HeroVisual {
+    position: relative;
+    height: 500px;
+}
+
+.GlassCard {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--RadiusLarge);
+    box-shadow: var(--ShadowElevation2);
+    position: absolute;
+    animation: Float 6s ease-in-out infinite;
+}
+
+.AbstractShape1 {
+    width: 300px;
+    height: 400px;
+    right: 0;
+    top: 50px;
+    background: linear-gradient(135deg, #e8f0fe 0%, #fce8e6 100%);
+}
+
+.AbstractShape2 {
+    width: 250px;
+    height: 150px;
+    left: 20px;
+    bottom: 50px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    animation-delay: -3s;
+}
+
+.CardIcon {
+    color: var(--GoogleGreen);
+    font-size: 2rem;
+}
+
+.CardLines .Line {
+    height: 8px;
+    background: var(--BorderColor);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.CardLines .Short {
+    width: 60%;
+}
+
+@keyframes Float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+@media (max-width: 1024px) {
+    .HeroSection {
+        grid-template-columns: 1fr;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    .HeroSubtitle {
+        margin: 0 auto 2.5rem auto;
+    }
+    .HeroButtons {
+        justify-content: center;
+    }
+    .HeroVisual {
+        display: none;
+    }
+}

@@ -1,0 +1,4 @@
+const SupabaseUrl = 'https://cryuxwrmtcgxbqcsmy.supabase.co';
+const SupabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNyeHV4d3JtcXRjZ3hicWNzam15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MDE4NTUsImV4cCI6MjA4ODI3Nzg1NX0.CeDNOp0mSjWkG49gsm37_xJbg992REZJVEAez19CBkM';
+
+window.SupabaseApp = supabase.createClient(SupabaseUrl, SupabaseKey);
